@@ -26,7 +26,7 @@ let dataBaseStore = [];
 
 showBtn.addEventListener('click', showProductsResource);
 resetBtn.addEventListener('click', resetProductsResource);
-genRandomProductBtn.addEventListener('click', postRandomProductsResourceItem);
+genRandomProductBtn.addEventListener('click', generateRandomProductsResourceItem);
 
 
 function getProductsResource() {
@@ -53,8 +53,10 @@ function postProductsResourceItem(productObj = {}) {
 
 // Because the showProductsResource() works showing dataBaseStore.
 // So its a require to that array be synchronized with the database items
-async function updateDataBaseStoreArray() {
+async function updateLocalDatabaseStoreArray() {
+    console.log('loading items from database onto local array');
     dataBaseStore = await getProductsResource();
+    console.log('loading complete');
 }
 
 async function showProductsResource() {
@@ -100,15 +102,15 @@ async function resetProductsResource() {
     console.log('reset started');
     await deleteAll()
     await postDefaultStoreItems()
-    await updateDataBaseStoreArray();
+    await updateLocalDatabaseStoreArray();
     console.log('reset finished');
 }
 
-async function postRandomProductsResourceItem() {
+async function generateRandomProductsResourceItem() {
     console.log('generating random product');
     try {
         await postProductsResourceItem({})
-        await updateDataBaseStoreArray();
+        await updateLocalDatabaseStoreArray();
         console.log('post success');
     } catch(err) {
         console.log('cant be posted');
@@ -118,10 +120,8 @@ async function postRandomProductsResourceItem() {
 
 
 
-async function init() {
-    await updateDataBaseStoreArray();
-    console.log('Items stored in database');
-    showProductsResource();
+function init() {
+    updateLocalDatabaseStoreArray();
 }
 
 init();
