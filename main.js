@@ -20,3 +20,6 @@ let defaultStore = [
 let showBtn = document.getElementById('show-btn');
 let resetBtn = document.getElementById('reset-btn');
 let genProductBtn = document.getElementById('gen-prod-btn');
+
+let url = 'https://634051e5e44b83bc73ce3ce4.mockapi.io/products';
+let dataBaseStore = [];
