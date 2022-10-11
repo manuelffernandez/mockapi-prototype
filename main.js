@@ -32,6 +32,7 @@ genRandomProductBtn.addEventListener('click', postRandomProductsResourceItem);
 function getProductsResource() {
     return fetch(url)
     .then(response => response.json())
+    .catch(err => console.log(err))
 }
 
 function deleteProductsResourceItem(id) {
@@ -51,7 +52,7 @@ function postProductsResourceItem(productObj = {}) {
 }
 
 // Because the showProductsResource() works showing dataBaseStore.
-// So its a require to that array be synchronized with the database
+// So its a require to that array be synchronized with the database items
 async function updateDataBaseStoreArray() {
     dataBaseStore = await getProductsResource();
 }
@@ -61,6 +62,7 @@ async function showProductsResource() {
 }
 
 
+// Because the api doesn't have an apikey, therefore anyone can post items on it.
 
 async function deleteAll() {
     console.log('item deletion started');
@@ -77,6 +79,7 @@ async function deleteAll() {
     console.log('deletion done');
 }
 
+//Because the mockapi interface doesn't allow set specific field values.
 async function postDefaultStoreItems() {
     console.log('posting items from local array to database started');
     for(product of defaultStore) {
@@ -92,6 +95,7 @@ async function postDefaultStoreItems() {
     console.log('posting to database finished');
 }
 
+// Because in case that the database has no items or there are items which were made by others
 async function resetProductsResource() {
     console.log('reset started');
     await deleteAll()
