@@ -99,13 +99,14 @@ async function resetProductsResource() {
 }
 
 async function postRandomProductsResourceItem() {
+    console.log('generating random product');
     try {
         await postProductsResourceItem({})
         await updateDataBaseStoreArray();
         console.log('post success');
     } catch(err) {
-        console.log('cant be posted')
-        console.log(err)
+        console.log('cant be posted');
+        console.log(err);
     }
 }
 
