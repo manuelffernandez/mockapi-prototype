@@ -50,6 +50,8 @@ function postProductsResourceItem(productObj = {}) {
     })
 }
 
+// Because the showProductsResource() works showing dataBaseStore.
+// So its a require to that array be synchronized with the database
 async function updateDataBaseStoreArray() {
     dataBaseStore = await getProductsResource();
 }
@@ -75,8 +77,8 @@ async function deleteAll() {
     console.log('deletion done');
 }
 
-async function postDefaultStore() {
-    console.log('posting to Database started');
+async function postDefaultStoreItems() {
+    console.log('posting items from local array to database started');
     for(product of defaultStore) {
         try {
             await postProductsResourceItem(product)
@@ -87,13 +89,13 @@ async function postDefaultStore() {
             return
         }
     }
-    console.log('posting to Database finished');
+    console.log('posting to database finished');
 }
 
 async function resetProductsResource() {
     console.log('reset started');
     await deleteAll()
-    await postDefaultStore()
+    await postDefaultStoreItems()
     await updateDataBaseStoreArray();
     console.log('reset finished');
 }
@@ -114,7 +116,8 @@ async function postRandomProductsResourceItem() {
 
 async function init() {
     await updateDataBaseStoreArray();
-    showProductsResource()
+    console.log('Items stored in database');
+    showProductsResource();
 }
 
 init();
