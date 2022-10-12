@@ -17,16 +17,18 @@ let defaultStore = [
 	new Item('Sandwich', 30, 10, genericDescription)
 ];
 
-let showBtn = document.getElementById('show-btn');
-let resetBtn = document.getElementById('reset-btn');
+let showDatabaseProductsBtn = document.getElementById('show-btn');
 let genRandomProductBtn = document.getElementById('gen-prod-btn');
+let resetDatabaseProductsBtn = document.getElementById('reset-btn');
+let deleteDatabaseProductsBtn = document.getElementById('delete-btn');
 
 let url = 'https://634051e5e44b83bc73ce3ce4.mockapi.io/products';
 let dataBaseStore = [];
 
-showBtn.addEventListener('click', showProductsResource);
-resetBtn.addEventListener('click', resetProductsResource);
+showDatabaseProductsBtn.addEventListener('click', showProductsResource);
+resetDatabaseProductsBtn.addEventListener('click', resetProductsResource);
 genRandomProductBtn.addEventListener('click', generateRandomProductsResourceItem);
+deleteDatabaseProductsBtn.addEventListener('click', deleteAll);
 
 
 function getProductsResource() {
@@ -70,7 +72,7 @@ async function deleteAll() {
     console.log('item deletion started');
     for(let i = 0; i < dataBaseStore.length; i++) {
         try {
-            await console.log('product ' + dataBaseStore[i].id + ' deleted');
+            console.log('product ' + dataBaseStore[i].id + ' deleted');
             await deleteProductsResourceItem(dataBaseStore[i].id);
         } catch(err) {
             console.log('cant be deleted');
@@ -78,7 +80,7 @@ async function deleteAll() {
             return
         }
     }
-    console.log('deletion done');
+    console.log('deletion complete');
 }
 
 //Because the mockapi interface doesn't allow set specific field values.
